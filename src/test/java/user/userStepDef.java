@@ -15,19 +15,15 @@ import static org.junit.Assert.assertEquals;
 public class userStepDef {
     private WebDriver driver;
 
-    @Given("User uses {string} as browser")
-    public void userUsesAsBrowser(String browser) {
-
-        if (browser.equals("Edge")) {
-            driver = new EdgeDriver();
-        } else if (browser.equals("Firefox")) {
-            driver = new FirefoxDriver();
-        } else {
-            driver = new ChromeDriver();
+    @Given("User uses as {string}")
+    public void userUsesAs(String browser) {
+        switch (browser) {
+            case "Edge" -> driver = new EdgeDriver();
+            case "Firefox" -> driver = new FirefoxDriver();
+            case "Chrome" -> driver = new ChromeDriver();
         }
 
     }
-
     @And("The user is on the registration page")
     public void theUserIsOnTheRegistrationPage() {
         driver.get("https://membership.basketballengland.co.uk/NewSupporterAccount");
@@ -86,24 +82,11 @@ public class userStepDef {
         System.out.println(pass2);
     }
 
-    @But("If the password is confirmed with another {string}")
-    public void ifThePasswordIsConfirmedWithAnother(String pass2) {
-        if (pass2.equals("dima2000")) {
-
-        }
-
-    }
-
-    @And("The User agrees to {string} {string}")
-    public void theUserAgreesTo(String terms_and_conditions, String klick) {
-        if (terms_and_conditions.equals(klick)) {
+    @And("The User agrees to {string}")
+    public void theUserAgreesTo(String terms_and_conditions) {
+        if (terms_and_conditions.equals("klick")) {
             click(driver, By.cssSelector(".md-checkbox > .md-checkbox:nth-child(1) .box"));
         }
-    }
-
-    @But("If the user does not accept {string}")
-    public void ifTheUserDoesNotAccept(String terms_and_conditions) {
-        System.out.println(terms_and_conditions);
     }
 
     @And("The user accepts the age limit")
@@ -121,47 +104,34 @@ public class userStepDef {
         click(driver, By.name("join"));
     }
 
-    @Then("Should the user account be created successfully{string} {string}")
-    public void shouldTheUserAccountBeCreatedSuccessfully(String expected, String account_created) {
-        if (expected.equals(account_created)) {
+    @Then("Should the user account be created successfully{string}")
+    public void shouldTheUserAccountBeCreatedSuccessfully(String expected) {
+        if (expected.equals("account_created")) {
             String actual = driver.findElement(By.cssSelector(".bold:nth-child(1)")).getText();
             assertEquals("THANK YOU FOR CREATING AN ACCOUNT WITH BASKETBALL ENGLAND", actual);
             System.out.println(actual);
             driver.close();
         }
-    }
-
-    @Then("Should the user get an error message that the surname is missing {string} {string}")
-    public void shouldTheUserGetAnErrorMessageThatTheSurnameIsMissing(String expected, String surname_missing) {
-        if (expected.equals(surname_missing)) {
+        if (expected.equals("surname_missing")) {
             String actual = driver.findElement(By.cssSelector("span[for='member_lastname']")).getText();
             assertEquals("Last Name is required", actual);
             System.out.println(actual);
             driver.close();
 
         }
-    }
-
-    @Then("Should the user receive an error message that the passwords do not match {string} {string}")
-    public void shouldTheUserReceiveAnErrorMessageThatThePasswordsDoNotMatch(String expected, String password_does_not_match) {
-        if (expected.equals(password_does_not_match)) {
+        if (expected.equals("password_does_not_match")) {
             String actual = driver.findElement(By.cssSelector("span[for='signupunlicenced_confirmpassword']")).getText();
             assertEquals("Password did not match", actual);
             System.out.println(actual);
             driver.close();
         }
-    }
-
-    @Then("the user should receive an error message that the terms must be accepted {string} {string}")
-    public void theUserShouldReceiveAnErrorMessageThatTheTermsMustBeAccepted(String expected, String terms_and_conditions) {
-        if (expected.equals(terms_and_conditions)) {
+        if (expected.equals("terms_and_conditions")) {
             String actual = driver.findElement(By.cssSelector("span[for='TermsAccept']")).getText();
             assertEquals("You must confirm that you have read and accepted our Terms and Conditions", actual);
             System.out.println(actual);
             driver.close();
         }
     }
-
     public static void click(WebDriver driver, By by) {
 
         (new WebDriverWait(driver, Duration.ofSeconds(10))).until(ExpectedConditions.elementToBeClickable(by));
@@ -169,6 +139,7 @@ public class userStepDef {
         driver.findElement(by).click();
 
     }
+
 
 
 }
