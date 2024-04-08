@@ -8,26 +8,32 @@ Feature:
     And The user "<places>" an item in the cart
     Then The user goes to the shopping "<cart>"
 
-    Examples:
-      | browser | words     | selects   | places | cart |
-      | Edge    | påskägg   | påskägg   | click  |      |
-      | Edge    | godis     | godis     | click  |      |
-      | Edge    | prime     | prime     | click  |      |
-      | Edge    | ballonger | ballonger | click  | cart |
-    Examples:
-
-      | browser | words     | selects   | places | cart |
-      | Firefox | påskägg   | påskägg   | click  |      |
-      | Firefox | godis     | godis     | click  |      |
-      | Firefox | prime     | prime     | click  |      |
-      | Firefox | ballonger | ballonger | click  | cart |
 
     Examples:
-      | browser | words     | selects   | places | cart |
-      | Chrome  | påskägg   | påskägg   | click  |      |
-      | Chrome  | godis     | godis     | click  |      |
-      | Chrome  | prime     | prime     | click  |      |
-      | Chrome  | ballonger | ballonger | click  | cart |
+
+      | browser | words   | selects | places | cart |
+      | Chrome  | påskägg | påskägg | click  | cart |
+      | Chrome  | käpp    | käpp    | click  | cart |
+      | Chrome  | prime   | prime   | click  | cart |
+      | Chrome  | godis   | godis   | click  | cart |
+
+    Examples:
+
+      | browser | words   | selects | places | cart |
+      | Firefox | påskägg | påskägg | click  | cart |
+      | Firefox | käpp    | käpp    | click  | cart |
+      | Firefox | prime   | prime   | click  | cart |
+      | Firefox | godis   | godis   | click  | cart |
+
+    Examples:
+
+      | browser | words   | selects | places | cart |
+      | Edge    | påskägg | påskägg | click  | cart |
+      | Edge    | käpp    | käpp    | click  | cart |
+      | Edge    | prime   | prime   | click  | cart |
+      | Edge    | godis   | godis   | click  | cart |
+
+
 
 
 
